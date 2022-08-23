@@ -3,7 +3,7 @@
 import java.util.Scanner;
 
 public class ProgramToSolveQuadraticEquations {
-	public static void main(String[] Strings) {
+	public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
