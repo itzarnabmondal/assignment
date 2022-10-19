@@ -17,43 +17,49 @@ class TaxNotEligibleException extends Exception {
 }
 
 class TaxCalculator { // creating tax calculator class
-    public void calculateTax(String empName, boolean isIndian, double empSal) throws Exception {
+    public double calculateTax(String empName, boolean isIndian, double empSal) throws Exception {
+        double amount = 0;
         if (isIndian == false) { // checking condition
-            try { // code here throws exception
-                throw new CountryNotValidException("The employee should be an Indian citizen for calculating tax");
-            } catch (CountryNotValidException ex) { // for catch and handel the exception
-                System.out.println(ex.getMessage());
-            }
+            throw new CountryNotValidException("The employee should be an Indian citizen for calculating tax");
         } else if (empName == null) {
-            try {
-                throw new EmployeeNameInvalidException("The employee name cannot be empty");
-            } catch (EmployeeNameInvalidException ex) {
-                System.out.println(ex.getMessage());
-            }
+            throw new EmployeeNameInvalidException("The employee name cannot be empty");
         } else if (empSal > 100000 && isIndian == true) {
-            System.out.println(empSal * 8 / 100);
+            amount = (empSal * 8) / 100; // assigning calculated value to amount
         } else if (empSal > 50000 && empSal < 100000 && isIndian == true) {
-            System.out.println((empSal * 6) / 100);
+            amount = (empSal * 6) / 100;
         } else if (empSal > 30000 && empSal < 50000 && isIndian == true) {
-            System.out.println((empSal * 5) / 100);
+            amount = (empSal * 5) / 100;
         } else if (empSal > 10000 && empSal < 300000 && isIndian == true) {
-            System.out.println((empSal * 4) / 100);
-        } else {
-            try {
-                throw new TaxNotEligibleException("The employee does not need to pay tax :)");
-            } catch (TaxNotEligibleException ex) {
-                System.out.println(ex.getMessage());
-            }
+            amount = (empSal * 4) / 100;
+        } else { // if any condition don't match this line will execute.
+            throw new TaxNotEligibleException("The employee does not need to pay tax :)");
         }
+        return amount;
     }
 }
 
 public class CalculatorSimulator { // Main class
     public static void main(String[] args) throws Exception { // main method
         TaxCalculator taxCalculator = new TaxCalculator(); // creating calculator object
-        taxCalculator.calculateTax("Ron", false, 3400); // calling calculate tax method
-        taxCalculator.calculateTax("Tim", true, 1000);
-        taxCalculator.calculateTax("Jack", true, 55000);
-        taxCalculator.calculateTax(null, true, 30000);
+        try { // Code here may throw exception
+            System.out.println(taxCalculator.calculateTax("Ron", false, 3400));
+        } catch (Exception ex) { // catch block
+            System.out.println(ex.getMessage()); // for printing the message
+        }
+        try {
+            System.out.println(taxCalculator.calculateTax("Tim", true, 1000));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
+            System.out.println(taxCalculator.calculateTax("Jack", true, 55000));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        try {
+            System.out.println(taxCalculator.calculateTax(null, true, 30000));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
