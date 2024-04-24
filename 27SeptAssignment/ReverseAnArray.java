@@ -19,13 +19,16 @@ public class ReverseAnArray {
             System.out.print(i + " ");
         sc.close();
     }
+
     public static int[] reverseArray(int[] a, int i, int j) {
-        if (i < j) {
-            // swap elements
-            int temp = a[i];
-            a[i] = a[j]; a[j] = temp;
-            reverseArray(a, i + 1, j - 1);
-        }
-        return a;
+    if (i < j) {
+        // swap elements
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+        // recursively call reverseArray and return the result
+        return reverseArray(a, i + 1, j - 1);
     }
+    return a;
+}
 }
